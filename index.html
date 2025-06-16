@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swaraj Patil - Cyber Portfolio</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="tv-container">
+        <div class="screen">
+            <div class="static-overlay"></div>
+            <div class="channel-display">CH: <span id="current-channel">01</span></div>
+            
+            <div class="boot-sequence" id="bootSequence">
+                <div class="boot-text">
+                    <div>INITIALIZING PORTFOLIO SYSTEM...</div>
+                    <div>LOADING USER: SWARAJ_PATIL</div>
+                    <div>BIRTH_YEAR: 2003 | LOCATION: THANE, INDIA</div>
+                    <div>STATUS: READY</div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <!-- Channel 1: Home -->
+                <div class="channel-content active" id="channel1">
+                    <div class="header">
+                        <h1 class="glitch">SWARAJ PATIL</h1>
+                        <div class="subtitle typing">AI & Data Science Developer | @CodeXSwaraj</div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; About Me</h2>
+                        <p>Detail-oriented developer with a commitment to coding excellence and a continuous desire to explore and integrate new technologies. Specializing in AI, Data Science, and innovative software solutions.</p>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Education & Stats</h2>
+                        <p>→ B.E. in AI & Data Science | CGPI: 7.38 (Current)</p>
+                        <p>→ Datta Meghe College of Engineering, Airoli</p>
+                        <p>→ Diploma in Mechanical Engineering: 82.83%</p>
+                        <p>→ Secondary (X): 87.22%</p>
+                        <p>→ Location: Airoli, Thane, Maharashtra</p>
+                    </div>
+                </div>
+                
+                <!-- Channel 2: Projects -->
+                <div class="channel-content" id="channel2">
+                    <div class="header">
+                        <h1>PROJECTS</h1>
+                        <div class="subtitle">My Digital Creations</div>
+                    </div>
+                    <div class="project-grid">
+                        <div class="project-card" onclick="showProjectDetails('writers-copilot')">
+                            <h3>Writer's Co-Pilot</h3>
+                            <p>AI-powered writing assistant with advanced NLP capabilities providing real-time suggestions and corrections.</p>
+                            <p class="date">Completed: March 2025</p>
+                        </div>
+                        <div class="project-card" onclick="showProjectDetails('vision-ai')">
+                            <h3>Vision AI - Interactive Perception</h3>
+                            <p>Real-time object detection system with voice command processing on Raspberry Pi.</p>
+                            <p class="date">Completed: October 2024</p>
+                        </div>
+                        <div class="project-card" onclick="showProjectDetails('dynamic-route')">
+                            <h3>Dynamic Route Optimization</h3>
+                            <p>LOGIthon hackathon project - Dynamic route optimization system for international trades.</p>
+                            <p class="date">Hackathon Project</p>
+                        </div>
+                        <div class="project-card" onclick="showProjectDetails('colorization')">
+                            <h3>AI-Powered Image/Video Colorization</h3>
+                            <p>CNN-based system for automatic colorization of grayscale images and videos.</p>
+                            <p class="date">Academic Project</p>
+                        </div>
+                        <div class="project-card" onclick="showProjectDetails('database-integration')">
+                            <h3>Database Integration Systems</h3>
+                            <p>Projects utilizing MySQL, SQLite & MongoDB with Python for efficient data management.</p>
+                            <p class="date">Completed: August 2024</p>
+                        </div>
+                        <div class="project-card" onclick="showProjectDetails('retro-portfolio')">
+                            <h3>Retro TV Portfolio</h3>
+                            <p>This interactive retro TV-themed portfolio showcasing my projects and skills.</p>
+                            <p class="date">Personal Project</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Channel 3: Skills -->
+                <div class="channel-content" id="channel3">
+                    <div class="header">
+                        <h1>SKILLS</h1>
+                        <div class="subtitle">My Technical Arsenal</div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Programming Languages</h2>
+                        <div class="skills-grid">
+                            <div class="skill-tag">C++</div>
+                            <div class="skill-tag">Python</div>
+                            <div class="skill-tag">Java (Basic)</div>
+                            <div class="skill-tag">HTML</div>
+                            <div class="skill-tag">CSS</div>
+                            <div class="skill-tag">JavaScript</div>
+                            <div class="skill-tag">C#</div>
+                            <div class="skill-tag">PHP</div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Databases & Tools</h2>
+                        <div class="skills-grid">
+                            <div class="skill-tag">MySQL</div>
+                            <div class="skill-tag">MongoDB</div>
+                            <div class="skill-tag">SQLite</div>
+                            <div class="skill-tag">Git</div>
+                            <div class="skill-tag">GitHub</div>
+                            <div class="skill-tag">VS Code</div>
+                            <div class="skill-tag">MS Office</div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Soft Skills</h2>
+                        <div class="skills-grid">
+                            <div class="skill-tag">Problem-solving</div>
+                            <div class="skill-tag">Time Management</div>
+                            <div class="skill-tag">Teamwork</div>
+                            <div class="skill-tag">Multitasking</div>
+                            <div class="skill-tag">Leadership</div>
+                            <div class="skill-tag">Communication</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Channel 4: Certificates -->
+                <div class="channel-content" id="channel4">
+                    <div class="header">
+                        <h1>CERTIFICATES</h1>
+                        <div class="subtitle">My Learning Journey</div>
+                    </div>
+                    <div class="certificate-grid">
+                        <div class="certificate-card" onclick="showCertificate('Databases')">
+                            <h3>Databases with Python</h3>
+                            <p>MySQL, SQLite & MongoDB with Python</p>
+                            <p class="date">Aug 27, 2024</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('Python')">
+                            <h3>Python Development & Data Science</h3>
+                            <p>Variables and Data Types</p>
+                            <p class="date">July 31, 2024</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('HTML')">
+                            <h3>HTML - The Complete Guide</h3>
+                            <p>Complete Guide to HTML for Beginners</p>
+                            <p class="date">July 25, 2024</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('Git')">
+                            <h3>Git & GitHub Bootcamp</h3>
+                            <p>5-day intensive bootcamp</p>
+                            <p class="date">Sep 2-6, 2024</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('JavaScript')">
+                            <h3>JavaScript Bootcamp</h3>
+                            <p>5-day intensive bootcamp</p>
+                            <p class="date">Sep 10-14, 2024</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('CSharp')">
+                            <h3>C# for Beginners</h3>
+                            <p>Fundamentals of C# programming</p>
+                            <p class="date">April 21, 2025</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('PHP')">
+                            <h3>PHP Master Class</h3>
+                            <p>The Complete PHP Developer Course</p>
+                            <p class="date">March 5, 2025</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Channel 5: Contact -->
+                <div class="channel-content" id="channel5">
+                    <div class="header">
+                        <h1>CONTACT</h1>
+                        <div class="subtitle">Let's Connect!</div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Get In Touch</h2>
+                        <div class="contact-info">
+                            <div class="contact-item" onclick="window.location.href='mailto:ai.57.swaraj.patil@gmail.com'">
+                                <span>📧</span>
+                                <span>ai.57.swaraj.patil@gmail.com</span>
+                            </div>
+                            <div class="contact-item" onclick="window.location.href='tel:+918999146688'">
+                                <span>📱</span>
+                                <span>+91 8999146688</span>
+                            </div>
+                            <div class="contact-item" onclick="window.open('https://github.com/swarajpatil', '_blank')">
+                                <span>🐙</span>
+                                <span>github.com/swarajpatil</span>
+                            </div>
+                            <div class="contact-item" onclick="window.open('https://linkedin.com/in/swarajpatil', '_blank')">
+                                <span>💼</span>
+                                <span>linkedin.com/in/swarajpatil</span>
+                            </div>
+                            <div class="contact-item">
+                                <span>📍</span>
+                                <span>Airoli, Thane, Maharashtra</span>
+                            </div>
+                            <div class="contact-item">
+                                <span>🎯</span>
+                                <span>AI & Data Science Specialist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Certifications & Training</h2>
+                        <p>→ Databases with Python: MySQL, SQLite & MongoDB (Udemy, Aug 2024)</p>
+                        <p>→ Python Development & Data Science (Udemy, July 2024)</p>
+                        <p>→ The Complete Guide to HTML (Udemy, July 2024)</p>
+                        <p>→ C++ Training (IIT Bombay, July 2021)</p>
+                        <p>→ Git & GitHub Bootcamp (LetsUpgrade, Sep 2024)</p>
+                        <p>→ JavaScript Bootcamp (LetsUpgrade, Sep 2024)</p>
+                    </div>
+                    <div class="section">
+                        <h2>&gt; Leadership & Activities</h2>
+                        <p>→ Head of Art and Gallery - Government Polytechnic, Mumbai</p>
+                        <p>→ LOGIthon Hackathon Participant - Dynamic Route Optimization</p>
+                        <p>→ Active in technical communities and coding excellence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="power-indicator"></div>
+            <div class="channel-buttons">
+                <button class="channel-btn active" onclick="changeChannel(1)">01</button>
+                <button class="channel-btn" onclick="changeChannel(2)">02</button>
+                <button class="channel-btn" onclick="changeChannel(3)">03</button>
+                <button class="channel-btn" onclick="changeChannel(4)">04</button>
+                <button class="channel-btn" onclick="changeChannel(5)">05</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Project Details Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content project-modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="projectModalContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Certificate Modal -->
+    <div class="modal" id="certificateModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="certificateModalContent"></div>
+        </div>
+    </div>
+    
+    <script src="scripts/main.js"></script>
+</body>
+</html>
