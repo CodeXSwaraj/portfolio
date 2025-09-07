@@ -354,6 +354,16 @@ function closeModal() {
     playSound('click');
 }
 
+// Game difficulty levels
+const gameDifficulties = {
+    beginner: { speed: 200, label: 'Beginner' },
+    medium: { speed: 150, label: 'Medium' },
+    hard: { speed: 100, label: 'Hard' }
+};
+
+// Current game difficulty
+let currentDifficulty = 'medium';
+
 // Game functions
 function startGame(gameType) {
     const modal = document.getElementById('gameModal');
@@ -366,8 +376,16 @@ function startGame(gameType) {
             gameHTML = `
                 <div class="game-area">
                     <h2>🐍 Snake Game</h2>
-                    <div class="game-score">Score: <span id="snakeScore">0</span></div>
+                    <div class="game-score">Score: <span id="snakeScore">0</span> | Level: <span id="snakeLevel">${gameDifficulties[currentDifficulty].label}</span></div>
                     <div class="game-instructions">Use arrow keys to control the snake. Eat the food to grow!</div>
+                    <div class="difficulty-selector">
+                        <label>Difficulty: </label>
+                        <select id="snakeDifficulty" onchange="changeSnakeDifficulty(this.value)">
+                            <option value="beginner" ${currentDifficulty === 'beginner' ? 'selected' : ''}>Beginner</option>
+                            <option value="medium" ${currentDifficulty === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="hard" ${currentDifficulty === 'hard' ? 'selected' : ''}>Hard</option>
+                        </select>
+                    </div>
                     <canvas id="snakeCanvas" class="game-canvas" width="400" height="300"></canvas>
                     <div class="game-buttons">
                         <button class="game-btn" onclick="startSnakeGame()">Start Game</button>
@@ -381,8 +399,16 @@ function startGame(gameType) {
             gameHTML = `
                 <div class="game-area">
                     <h2>🏓 Pong</h2>
-                    <div class="game-score">Score: <span id="pongScore">0 - 0</span></div>
+                    <div class="game-score">Score: <span id="pongScore">0 - 0</span> | Level: <span id="pongLevel">${gameDifficulties[currentDifficulty].label}</span></div>
                     <div class="game-instructions">W/S for left paddle, ↑/↓ for right paddle</div>
+                    <div class="difficulty-selector">
+                        <label>Difficulty: </label>
+                        <select id="pongDifficulty" onchange="changePongDifficulty(this.value)">
+                            <option value="beginner" ${currentDifficulty === 'beginner' ? 'selected' : ''}>Beginner</option>
+                            <option value="medium" ${currentDifficulty === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="hard" ${currentDifficulty === 'hard' ? 'selected' : ''}>Hard</option>
+                        </select>
+                    </div>
                     <canvas id="pongCanvas" class="game-canvas" width="400" height="300"></canvas>
                     <div class="game-buttons">
                         <button class="game-btn" onclick="startPongGame()">Start Game</button>
@@ -396,8 +422,16 @@ function startGame(gameType) {
             gameHTML = `
                 <div class="game-area">
                     <h2>🧠 Memory Game</h2>
-                    <div class="game-score">Moves: <span id="memoryMoves">0</span> | Matches: <span id="memoryMatches">0</span></div>
+                    <div class="game-score">Moves: <span id="memoryMoves">0</span> | Matches: <span id="memoryMatches">0</span> | Level: <span id="memoryLevel">${gameDifficulties[currentDifficulty].label}</span></div>
                     <div class="game-instructions">Click cards to flip them. Match pairs to win!</div>
+                    <div class="difficulty-selector">
+                        <label>Difficulty: </label>
+                        <select id="memoryDifficulty" onchange="changeMemoryDifficulty(this.value)">
+                            <option value="beginner" ${currentDifficulty === 'beginner' ? 'selected' : ''}>Beginner (4x4)</option>
+                            <option value="medium" ${currentDifficulty === 'medium' ? 'selected' : ''}>Medium (4x4)</option>
+                            <option value="hard" ${currentDifficulty === 'hard' ? 'selected' : ''}>Hard (6x6)</option>
+                        </select>
+                    </div>
                     <div id="memoryBoard" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 400px; margin: 20px auto;"></div>
                     <div class="game-buttons">
                         <button class="game-btn" onclick="startMemoryGame()">New Game</button>
@@ -410,8 +444,16 @@ function startGame(gameType) {
             gameHTML = `
                 <div class="game-area">
                     <h2>⌨️ Typing Test</h2>
-                    <div class="game-score">WPM: <span id="typingWPM">0</span> | Accuracy: <span id="typingAccuracy">0%</span></div>
+                    <div class="game-score">WPM: <span id="typingWPM">0</span> | Accuracy: <span id="typingAccuracy">0%</span> | Level: <span id="typingLevel">${gameDifficulties[currentDifficulty].label}</span></div>
                     <div class="game-instructions">Type the words as fast as you can!</div>
+                    <div class="difficulty-selector">
+                        <label>Difficulty: </label>
+                        <select id="typingDifficulty" onchange="changeTypingDifficulty(this.value)">
+                            <option value="beginner" ${currentDifficulty === 'beginner' ? 'selected' : ''}>Beginner (Simple words)</option>
+                            <option value="medium" ${currentDifficulty === 'medium' ? 'selected' : ''}>Medium (Mixed words)</option>
+                            <option value="hard" ${currentDifficulty === 'hard' ? 'selected' : ''}>Hard (Complex words)</option>
+                        </select>
+                    </div>
                     <div id="typingText" style="font-size: 1.2rem; color: #00ff00; margin: 20px 0; min-height: 60px; padding: 20px; border: 2px solid #00ff00; border-radius: 10px; background: rgba(0, 255, 0, 0.05);"></div>
                     <input type="text" id="typingInput" style="width: 100%; padding: 10px; font-size: 1rem; background: #000; border: 2px solid #00ff00; color: #00ff00; border-radius: 5px; text-align: center;" placeholder="Start typing...">
                     <div class="game-buttons">
@@ -435,25 +477,44 @@ let snakeDirection = {x: 0, y: 0};
 let snake = [{x: 200, y: 150}];
 let snakeFood = {x: 100, y: 100};
 let snakeScore = 0;
+let snakeGameStarted = false;
+let snakeKeyHandler = null;
+
+function changeSnakeDifficulty(difficulty) {
+    currentDifficulty = difficulty;
+    const levelElement = document.getElementById('snakeLevel');
+    if (levelElement) {
+        levelElement.textContent = gameDifficulties[difficulty].label;
+    }
+}
 
 function startSnakeGame() {
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
     const scoreElement = document.getElementById('snakeScore');
     
-    // Reset game state
+    // Reset game state completely
     snake = [{x: 200, y: 150}];
-    snakeDirection = {x: 0, y: 0};
+    snakeDirection = {x: 10, y: 0}; // Start moving right
     snakeFood = {
         x: Math.floor(Math.random() * (canvas.width / 10)) * 10,
         y: Math.floor(Math.random() * (canvas.height / 10)) * 10
     };
     snakeScore = 0;
-    scoreElement.textContent = snakeScore;
+    snakeGameStarted = true;
+    
+    if (scoreElement) {
+        scoreElement.textContent = snakeScore;
+    }
     
     // Clear any existing interval
     if (snakeInterval) {
         clearInterval(snakeInterval);
+    }
+    
+    // Remove existing key handler
+    if (snakeKeyHandler) {
+        document.removeEventListener('keydown', snakeKeyHandler);
     }
     
     function draw() {
@@ -472,17 +533,19 @@ function startSnakeGame() {
     }
     
     function update() {
+        if (!snakeGameStarted) return;
+        
         const head = {x: snake[0].x + snakeDirection.x, y: snake[0].y + snakeDirection.y};
         
         // Check collision with walls
         if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
-            resetSnakeGame();
+            gameOver();
             return;
         }
         
         // Check collision with self
         if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-            resetSnakeGame();
+            gameOver();
             return;
         }
         
@@ -491,11 +554,16 @@ function startSnakeGame() {
         // Check food collision
         if (head.x === snakeFood.x && head.y === snakeFood.y) {
             snakeScore += 10;
-            scoreElement.textContent = snakeScore;
-            snakeFood = {
-                x: Math.floor(Math.random() * (canvas.width / 10)) * 10,
-                y: Math.floor(Math.random() * (canvas.height / 10)) * 10
-            };
+            if (scoreElement) {
+                scoreElement.textContent = snakeScore;
+            }
+            // Generate new food position
+            do {
+                snakeFood = {
+                    x: Math.floor(Math.random() * (canvas.width / 10)) * 10,
+                    y: Math.floor(Math.random() * (canvas.height / 10)) * 10
+                };
+            } while (snake.some(segment => segment.x === snakeFood.x && segment.y === snakeFood.y));
         } else {
             snake.pop();
         }
@@ -503,19 +571,31 @@ function startSnakeGame() {
         draw();
     }
     
+    function gameOver() {
+        snakeGameStarted = false;
+        clearInterval(snakeInterval);
+        alert(`Game Over! Final Score: ${snakeScore}`);
+    }
+    
     // Add keydown listener
-    const keyHandler = (e) => {
-        if (e.key === 'ArrowUp' && snakeDirection.y === 0) snakeDirection = {x: 0, y: -10};
-        if (e.key === 'ArrowDown' && snakeDirection.y === 0) snakeDirection = {x: 0, y: 10};
-        if (e.key === 'ArrowLeft' && snakeDirection.x === 0) snakeDirection = {x: -10, y: 0};
-        if (e.key === 'ArrowRight' && snakeDirection.x === 0) snakeDirection = {x: 10, y: 0};
+    snakeKeyHandler = (e) => {
+        if (!snakeGameStarted) return;
+        
+        if (e.key === 'ArrowUp' && snakeDirection.y === 0) {
+            snakeDirection = {x: 0, y: -10};
+        } else if (e.key === 'ArrowDown' && snakeDirection.y === 0) {
+            snakeDirection = {x: 0, y: 10};
+        } else if (e.key === 'ArrowLeft' && snakeDirection.x === 0) {
+            snakeDirection = {x: -10, y: 0};
+        } else if (e.key === 'ArrowRight' && snakeDirection.x === 0) {
+            snakeDirection = {x: 10, y: 0};
+        }
     };
     
-    // Remove existing listener and add new one
-    document.removeEventListener('keydown', keyHandler);
-    document.addEventListener('keydown', keyHandler);
+    document.addEventListener('keydown', snakeKeyHandler);
     
-    snakeInterval = setInterval(update, 150);
+    const speed = gameDifficulties[currentDifficulty].speed;
+    snakeInterval = setInterval(update, speed);
     draw();
 }
 
@@ -523,7 +603,8 @@ function pauseSnakeGame() {
     if (snakeInterval) {
         clearInterval(snakeInterval);
         snakeInterval = null;
-    } else {
+        snakeGameStarted = false;
+    } else if (!snakeGameStarted) {
         startSnakeGame();
     }
 }
@@ -534,10 +615,17 @@ function resetSnakeGame() {
         snakeInterval = null;
     }
     
+    // Remove key handler
+    if (snakeKeyHandler) {
+        document.removeEventListener('keydown', snakeKeyHandler);
+        snakeKeyHandler = null;
+    }
+    
     // Reset game state
     snake = [{x: 200, y: 150}];
     snakeDirection = {x: 0, y: 0};
     snakeScore = 0;
+    snakeGameStarted = false;
     
     const scoreElement = document.getElementById('snakeScore');
     if (scoreElement) {
@@ -557,24 +645,51 @@ let memoryCards = [];
 let flippedCards = [];
 let matches = 0;
 let moves = 0;
+let memoryGameStarted = false;
+
+function changeMemoryDifficulty(difficulty) {
+    currentDifficulty = difficulty;
+    const levelElement = document.getElementById('memoryLevel');
+    if (levelElement) {
+        levelElement.textContent = gameDifficulties[difficulty].label;
+    }
+}
 
 function startMemoryGame() {
-    const symbols = ['🐍', '🏓', '🧠', '⌨️', '💻', '🎮', '🚀', '⭐'];
+    const symbols = ['🐍', '🏓', '🧠', '⌨️', '💻', '🎮', '🚀', '⭐', '🎯', '🎲', '🎪', '🎨', '🎭', '🎪', '🎨', '🎭', '🎯', '🎲'];
     const board = document.getElementById('memoryBoard');
     board.innerHTML = '';
     
-    memoryCards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+    // Determine grid size based on difficulty
+    let gridSize, cardCount;
+    if (currentDifficulty === 'hard') {
+        gridSize = 6;
+        cardCount = 18; // 9 pairs
+    } else {
+        gridSize = 4;
+        cardCount = 8; // 4 pairs
+    }
+    
+    // Update board grid
+    board.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    board.style.maxWidth = currentDifficulty === 'hard' ? '600px' : '400px';
+    
+    // Select symbols based on difficulty
+    const selectedSymbols = symbols.slice(0, cardCount / 2);
+    memoryCards = [...selectedSymbols, ...selectedSymbols].sort(() => Math.random() - 0.5);
     flippedCards = [];
     matches = 0;
     moves = 0;
+    memoryGameStarted = true;
     
     memoryCards.forEach((symbol, index) => {
         const card = document.createElement('div');
         card.className = 'memory-card';
+        const cardSize = currentDifficulty === 'hard' ? '60px' : '80px';
         card.style.cssText = `
-            width: 80px; height: 80px; background: #333; border: 2px solid #00ff00; 
+            width: ${cardSize}; height: ${cardSize}; background: #333; border: 2px solid #00ff00; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 2rem; cursor: pointer; border-radius: 5px;
+            font-size: ${currentDifficulty === 'hard' ? '1.5rem' : '2rem'}; cursor: pointer; border-radius: 5px;
         `;
         card.dataset.index = index;
         card.dataset.symbol = symbol;
@@ -624,15 +739,39 @@ function updateMemoryScore() {
 }
 
 function resetMemoryGame() {
-    startMemoryGame();
+    memoryGameStarted = false;
+    memoryCards = [];
+    flippedCards = [];
+    matches = 0;
+    moves = 0;
+    
+    const board = document.getElementById('memoryBoard');
+    if (board) {
+        board.innerHTML = '';
+    }
+    
+    updateMemoryScore();
 }
 
 // Simple Typing Test
-let typingWords = ['portfolio', 'developer', 'javascript', 'python', 'programming', 'computer', 'technology', 'innovation'];
+let typingWords = {
+    beginner: ['cat', 'dog', 'run', 'jump', 'play', 'game', 'fun', 'happy', 'good', 'nice', 'big', 'small', 'fast', 'slow', 'hot', 'cold'],
+    medium: ['portfolio', 'developer', 'javascript', 'python', 'programming', 'computer', 'technology', 'innovation', 'algorithm', 'database', 'framework', 'application', 'interface', 'function', 'variable', 'constant'],
+    hard: ['pneumonoultramicroscopicsilicovolcanoconiosis', 'supercalifragilisticexpialidocious', 'antidisestablishmentarianism', 'pseudopseudohypoparathyroidism', 'floccinaucinihilipilification', 'hippopotomonstrosesquippedaliophobia', 'xenotransplantation', 'electroencephalographically', 'immunoelectrophoretically', 'psychophysicotherapeutics', 'thyroparathyroidectomized', 'pneumoencephalographically', 'radioimmunoelectrophoresis', 'psychoneuroendocrinological', 'otorhinolaryngological', 'gastroenterologically']
+};
 let currentWordIndex = 0;
 let startTime = null;
 let correctChars = 0;
 let totalChars = 0;
+let typingGameStarted = false;
+
+function changeTypingDifficulty(difficulty) {
+    currentDifficulty = difficulty;
+    const levelElement = document.getElementById('typingLevel');
+    if (levelElement) {
+        levelElement.textContent = gameDifficulties[difficulty].label;
+    }
+}
 
 function startTypingGame() {
     const textElement = document.getElementById('typingText');
@@ -642,14 +781,17 @@ function startTypingGame() {
     correctChars = 0;
     totalChars = 0;
     startTime = Date.now();
+    typingGameStarted = true;
     
     displayWords();
     inputElement.value = '';
     inputElement.focus();
     
     inputElement.oninput = () => {
+        if (!typingGameStarted) return;
+        
         const input = inputElement.value;
-        const currentWord = typingWords[currentWordIndex];
+        const currentWord = typingWords[currentDifficulty][currentWordIndex];
         
         if (input === currentWord) {
             correctChars += currentWord.length;
@@ -657,7 +799,7 @@ function startTypingGame() {
             currentWordIndex++;
             inputElement.value = '';
             
-            if (currentWordIndex >= typingWords.length) {
+            if (currentWordIndex >= typingWords[currentDifficulty].length) {
                 endTypingGame();
                 return;
             }
@@ -673,7 +815,8 @@ function startTypingGame() {
 
 function displayWords() {
     const textElement = document.getElementById('typingText');
-    textElement.innerHTML = typingWords.slice(currentWordIndex, currentWordIndex + 3).join(' ');
+    const words = typingWords[currentDifficulty];
+    textElement.innerHTML = words.slice(currentWordIndex, currentWordIndex + 3).join(' ');
 }
 
 function updateTypingScore() {
@@ -688,12 +831,29 @@ function updateTypingScore() {
 }
 
 function endTypingGame() {
+    typingGameStarted = false;
     updateTypingScore();
     alert('Typing test completed!');
 }
 
 function resetTypingGame() {
-    startTypingGame();
+    typingGameStarted = false;
+    currentWordIndex = 0;
+    correctChars = 0;
+    totalChars = 0;
+    startTime = null;
+    
+    const textElement = document.getElementById('typingText');
+    const inputElement = document.getElementById('typingInput');
+    
+    if (textElement) {
+        textElement.innerHTML = '';
+    }
+    if (inputElement) {
+        inputElement.value = '';
+    }
+    
+    updateTypingScore();
 }
 
 // Pong Game
@@ -706,21 +866,42 @@ let pongGame = {
     rightScore: 0,
     paused: false
 };
+let pongGameStarted = false;
+let pongKeyHandler = null;
+let pongKeyUpHandler = null;
+
+function changePongDifficulty(difficulty) {
+    currentDifficulty = difficulty;
+    const levelElement = document.getElementById('pongLevel');
+    if (levelElement) {
+        levelElement.textContent = gameDifficulties[difficulty].label;
+    }
+}
 
 function startPongGame() {
     const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
     const scoreElement = document.getElementById('pongScore');
     
+    // Get ball speed based on difficulty
+    let ballSpeed;
+    switch(currentDifficulty) {
+        case 'beginner': ballSpeed = 1; break;
+        case 'medium': ballSpeed = 2; break;
+        case 'hard': ballSpeed = 3; break;
+        default: ballSpeed = 2;
+    }
+    
     // Reset game state
     pongGame = {
-        ball: {x: 200, y: 150, dx: 2, dy: 2},
+        ball: {x: 200, y: 150, dx: ballSpeed, dy: ballSpeed},
         leftPaddle: {x: 10, y: 100, dy: 0},
         rightPaddle: {x: 380, y: 100, dy: 0},
         leftScore: 0,
         rightScore: 0,
         paused: false
     };
+    pongGameStarted = true;
     
     if (scoreElement) {
         scoreElement.textContent = '0 - 0';
@@ -729,6 +910,14 @@ function startPongGame() {
     // Clear any existing interval
     if (pongInterval) {
         clearInterval(pongInterval);
+    }
+    
+    // Remove existing key handlers
+    if (pongKeyHandler) {
+        document.removeEventListener('keydown', pongKeyHandler);
+    }
+    if (pongKeyUpHandler) {
+        document.removeEventListener('keyup', pongKeyUpHandler);
     }
     
     function draw() {
@@ -755,7 +944,7 @@ function startPongGame() {
     }
     
     function update() {
-        if (pongGame.paused) return;
+        if (pongGame.paused || !pongGameStarted) return;
         
         // Move ball
         pongGame.ball.x += pongGame.ball.dx;
@@ -809,12 +998,14 @@ function startPongGame() {
     function resetBall() {
         pongGame.ball.x = canvas.width / 2;
         pongGame.ball.y = canvas.height / 2;
-        pongGame.ball.dx = (Math.random() > 0.5 ? 1 : -1) * 2;
-        pongGame.ball.dy = (Math.random() > 0.5 ? 1 : -1) * 2;
+        pongGame.ball.dx = (Math.random() > 0.5 ? 1 : -1) * ballSpeed;
+        pongGame.ball.dy = (Math.random() > 0.5 ? 1 : -1) * ballSpeed;
     }
     
     // Add keydown listener
-    const keyHandler = (e) => {
+    pongKeyHandler = (e) => {
+        if (!pongGameStarted) return;
+        
         if (e.key === 'w' || e.key === 'W') {
             pongGame.leftPaddle.dy = -3;
         } else if (e.key === 's' || e.key === 'S') {
@@ -826,7 +1017,9 @@ function startPongGame() {
         }
     };
     
-    const keyUpHandler = (e) => {
+    pongKeyUpHandler = (e) => {
+        if (!pongGameStarted) return;
+        
         if (e.key === 'w' || e.key === 'W' || e.key === 's' || e.key === 'S') {
             pongGame.leftPaddle.dy = 0;
         } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
@@ -834,11 +1027,8 @@ function startPongGame() {
         }
     };
     
-    // Remove existing listeners and add new ones
-    document.removeEventListener('keydown', keyHandler);
-    document.removeEventListener('keyup', keyUpHandler);
-    document.addEventListener('keydown', keyHandler);
-    document.addEventListener('keyup', keyUpHandler);
+    document.addEventListener('keydown', pongKeyHandler);
+    document.addEventListener('keyup', pongKeyUpHandler);
     
     pongInterval = setInterval(update, 16);
     draw();
@@ -849,7 +1039,8 @@ function pausePongGame() {
         clearInterval(pongInterval);
         pongInterval = null;
         pongGame.paused = true;
-    } else {
+        pongGameStarted = false;
+    } else if (!pongGameStarted) {
         pongGame.paused = false;
         startPongGame();
     }
@@ -861,6 +1052,16 @@ function resetPongGame() {
         pongInterval = null;
     }
     
+    // Remove key handlers
+    if (pongKeyHandler) {
+        document.removeEventListener('keydown', pongKeyHandler);
+        pongKeyHandler = null;
+    }
+    if (pongKeyUpHandler) {
+        document.removeEventListener('keyup', pongKeyUpHandler);
+        pongKeyUpHandler = null;
+    }
+    
     // Reset game state
     pongGame = {
         ball: {x: 200, y: 150, dx: 2, dy: 2},
@@ -870,6 +1071,7 @@ function resetPongGame() {
         rightScore: 0,
         paused: false
     };
+    pongGameStarted = false;
     
     const scoreElement = document.getElementById('pongScore');
     if (scoreElement) {
