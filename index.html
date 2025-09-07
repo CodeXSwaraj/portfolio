@@ -8,9 +8,19 @@
 </head>
 <body>
     <div class="tv-container">
-        <div class="screen">
-            <div class="static-overlay"></div>
-            <div class="channel-display">CH: <span id="current-channel">01</span></div>
+        <div class="tv-frame">
+            <div class="tv-screen">
+                <div class="static-overlay"></div>
+                <div class="crt-effect"></div>
+                <div class="noise-overlay"></div>
+                <div class="channel-display">CH: <span id="current-channel">01</span></div>
+                
+                <!-- TV Control Panel -->
+                <div class="tv-control-panel">
+                    <div class="control-knob" onclick="adjustBrightness()" title="Brightness">
+                        <div class="control-label">BRT</div>
+                    </div>
+                </div>
             
             <div class="boot-sequence" id="bootSequence">
                 <div class="boot-text">
@@ -34,7 +44,7 @@
                     </div>
                     <div class="section">
                         <h2>&gt; Education & Stats</h2>
-                        <p>→ B.E. in AI & Data Science | CGPI: 7.38 (Current)</p>
+                        <p>→ B.E. in AI & Data Science | CGPI: 7.92 </p>
                         <p>→ Datta Meghe College of Engineering, Airoli</p>
                         <p>→ Diploma in Mechanical Engineering: 82.83%</p>
                         <p>→ Secondary (X): 87.22%</p>
@@ -49,6 +59,11 @@
                         <div class="subtitle">My Digital Creations</div>
                     </div>
                     <div class="project-grid">
+                        <div class="project-card" onclick="showProjectDetails('vision-ai-research')">
+                            <h3>Vision AI: An Interactive Perception System</h3>
+                            <p>Research paper published in IRJET - Real-time object recognition with NLP on Raspberry Pi</p>
+                            <p class="date">Published: May 2025</p>
+                        </div>
                         <div class="project-card" onclick="showProjectDetails('writers-copilot')">
                             <h3>Writer's Co-Pilot</h3>
                             <p>AI-powered writing assistant with advanced NLP capabilities providing real-time suggestions and corrections.</p>
@@ -133,6 +148,16 @@
                         <div class="subtitle">My Learning Journey</div>
                     </div>
                     <div class="certificate-grid">
+                        <div class="certificate-card" onclick="showCertificate('OracleDataScience')">
+                            <h3>Oracle Cloud Infrastructure 2025 Certified Data Science Professional</h3>
+                            <p>Oracle Cloud Infrastructure Data Science Certified Professional</p>
+                            <p class="date">Sep 2, 2025</p>
+                        </div>
+                        <div class="certificate-card" onclick="showCertificate('OracleDatabase')">
+                            <h3>Oracle Cloud Database Services 2025 Certified Professional</h3>
+                            <p>Oracle Cloud Database Services Certified Professional</p>
+                            <p class="date">Sep 3, 2025</p>
+                        </div>
                         <div class="certificate-card" onclick="showCertificate('Databases')">
                             <h3>Databases with Python</h3>
                             <p>MySQL, SQLite & MongoDB with Python</p>
@@ -222,7 +247,38 @@
                         <p>→ Active in technical communities and coding excellence</p>
                     </div>
                 </div>
+                
+                <!-- Channel 6: Games -->
+                <div class="channel-content" id="channel6">
+                    <div class="header">
+                        <h1>GAMES</h1>
+                        <div class="subtitle">Retro Arcade Collection</div>
+                    </div>
+                    <div class="games-grid">
+                        <div class="game-card" onclick="startGame('snake')">
+                            <h3>🐍 Snake Game</h3>
+                            <p>Classic snake game with retro controls</p>
+                            <p class="game-controls">Use Arrow Keys</p>
+                        </div>
+                        <div class="game-card" onclick="startGame('pong')">
+                            <h3>🏓 Pong</h3>
+                            <p>Classic paddle game</p>
+                            <p class="game-controls">W/S for Left, ↑/↓ for Right</p>
+                        </div>
+                        <div class="game-card" onclick="startGame('memory')">
+                            <h3>🧠 Memory Game</h3>
+                            <p>Test your memory with cards</p>
+                            <p class="game-controls">Click to Flip</p>
+                        </div>
+                        <div class="game-card" onclick="startGame('typing')">
+                            <h3>⌨️ Typing Test</h3>
+                            <p>Speed typing challenge</p>
+                            <p class="game-controls">Type the words</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="tv-stand"></div>
         </div>
         
         <div class="controls">
@@ -233,6 +289,7 @@
                 <button class="channel-btn" onclick="changeChannel(3)">03</button>
                 <button class="channel-btn" onclick="changeChannel(4)">04</button>
                 <button class="channel-btn" onclick="changeChannel(5)">05</button>
+                <button class="channel-btn" onclick="changeChannel(6)">06</button>
             </div>
         </div>
     </div>
@@ -252,6 +309,14 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <div id="certificateModalContent"></div>
+        </div>
+    </div>
+    
+    <!-- Game Modal -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content game-modal">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="gameModalContent"></div>
         </div>
     </div>
     
