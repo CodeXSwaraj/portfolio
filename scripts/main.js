@@ -164,10 +164,34 @@ function addScreenFlicker() {
 }
 
 function playSound(type) {
-    if (type === 'click') {
-        const click = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU...');
-        click.volume = 0.3;
-        click.play().catch(e => console.log('Audio play failed:', e));
+    // Simple beep sound using Web Audio API
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Different frequencies for different sound types
+        let frequency = 800; // default
+        if (type === 'channel') {
+            frequency = 600; // lower pitch for channel change
+        } else if (type === 'click') {
+            frequency = 1000; // higher pitch for clicks
+        }
+        
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        oscillator.type = 'square';
+        
+        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.005, audioContext.currentTime + 0.1);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        // Fallback: just log that sound was attempted
+        console.log('Sound effect attempted');
     }
 }
 

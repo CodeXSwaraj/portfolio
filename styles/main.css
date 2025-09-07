@@ -1343,25 +1343,27 @@ body {
 }
 
 /* Game Modal */
-.game-modal {
+.modal-content.game-modal {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     border: 3px solid #00ff00;
     border-radius: 15px;
-    width: 90%;
+    width: 90% !important;
     max-width: 800px;
-    max-height: 80vh;
-    overflow: hidden;
+    max-height: 85vh !important;
+    overflow-y: auto;
     position: relative;
+    padding: 20px !important;
 }
 
 .game-area {
     padding: 20px;
     text-align: center;
-    min-height: 400px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 15px;
 }
 
 .game-score {
@@ -1388,23 +1390,37 @@ body {
     display: flex;
     gap: 15px;
     margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
 }
 
 .game-btn {
     background: rgba(0, 255, 0, 0.1);
     border: 2px solid #00ff00;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     color: #00ff00;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    min-width: 120px;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
 }
 
 .game-btn:hover {
     background: rgba(0, 255, 0, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.game-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.3);
 }
 
 } 
